@@ -6,15 +6,17 @@ import com.formulario.form.dto.UsuarioDto;
 import com.formulario.form.entity.Usuario;
 import com.formulario.form.mapper.UsuarioFactory;
 import com.formulario.form.mapper.UsuarioMapper;
+import com.formulario.form.patterns.validacao.UsuarioValidator;
 import com.formulario.form.patterns.validacao.ValidacaoStrategy;
 import com.formulario.form.patterns.validacao.ValidarCPF;
 import com.formulario.form.patterns.validacao.ValidarEmail;
 import com.formulario.form.patterns.validacao.logger.LoggerSingleton;
 import com.formulario.form.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+//S — Single Responsibility Principle
 //Facade=Ele centraliza a lógica de criação, validação e persistência, expondo uma interface simples para o Controller.
 // Facade Pattern + Strategy + Factory
 import java.util.List;
@@ -26,11 +28,11 @@ import java.util.stream.Collectors;
 @Service
 public class UsuarioService {
     private final UsuarioRepository repository;
+    private final UsuarioValidator validator;
 
     public UsuarioDto salvarUsuario(UsuarioDto dto) {
 
-        List<ValidacaoStrategy> validacoes = List.of(new ValidarCPF(), new ValidarEmail());
-        validacoes.forEach(v -> v.validar(dto));
+        validator.validar(dto);
 
         if (repository.existsByCpf(dto.getCpf())) {
             throw new ValidationException("Cpf já cadastrado : " + dto.getCpf());

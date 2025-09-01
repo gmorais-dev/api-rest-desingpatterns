@@ -2,7 +2,10 @@ package com.formulario.form.patterns.validacao;
 
 import com.formulario.form.Exceptions.ValidationException;
 import com.formulario.form.dto.UsuarioDto;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class ValidarCPF implements ValidacaoStrategy {
     @Override
     public void validar(UsuarioDto dto) {
