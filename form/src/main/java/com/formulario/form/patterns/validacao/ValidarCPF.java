@@ -5,7 +5,7 @@ import com.formulario.form.dto.UsuarioDto;
 
 public class ValidarCPF implements ValidacaoStrategy {
     @Override
-    public void validar(UsuarioDto dto) {1
+    public void validar(UsuarioDto dto) {
         String cpf = dto.getCpf();
         if (cpf == null || cpf.isBlank()) {
             throw new ValidationException("CPF inválido: vazio");

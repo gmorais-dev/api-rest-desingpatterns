@@ -18,7 +18,7 @@ public class ApiExceptionHandler {
         error.setStatus(HttpStatus.BAD_REQUEST.value()); // 400
         error.setTimestamp(Instant.now());
         error.setError("Erro de validação");
-        error.setMessage(e.getMessage()); // Mensagem da validação
+        error.setMessage(e.getMessage());
         error.setPath(request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
